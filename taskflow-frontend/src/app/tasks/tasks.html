@@ -1,1 +1,11 @@
-<p>tasks works!</p>
+<h2>Tasks</h2>
+
+<input [(ngModel)]="newTask.title" placeholder="Title">
+<input [(ngModel)]="newTask.description" placeholder="Description">
+<button (click)="addTask()">Add</button>
+
+<ul>
+  <li *ngFor="let t of tasks">
+    {{ t.title }} - {{ t.description }}
+  </li>
+</ul>
