@@ -11,7 +11,9 @@ export class ApiService {
   constructor(private http: HttpClient) {}
 
   login(data: any) {
-    return this.http.post(`${this.baseUrl}/auth/login`, data);
+      return this.http.post(`${this.baseUrl}/auth/login`, data, {
+        responseType: 'text'
+      });
   }
 
   register(data: any) {

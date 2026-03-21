@@ -22,15 +22,16 @@ export class LoginComponent {
       password: this.password
     }).subscribe(
       (res: any) => {
+        console.log('TOKEN:', res);
         // 🔐 zapis tokena
-        localStorage.setItem('token', res);
+        localStorage.setItem('token', res.toString());
 
         // 🚀 przekierowanie
         this.router.navigate(['/tasks']);
       },
       (err: any) => {
+        console.error('LOGIN ERROR:', err); // 🔥 DEBUG
         alert('Login failed');
-        console.error(err);
       }
     );
   }
