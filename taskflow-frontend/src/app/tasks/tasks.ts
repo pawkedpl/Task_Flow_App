@@ -19,7 +19,10 @@ export class TasksComponent implements OnInit {
   ngOnInit() {
     this.loadTasks();
   }
-
+  logout() {
+    localStorage.removeItem('token');
+    window.location.href = '/';
+  }
   loadTasks() {
     this.api.getTasks().subscribe((res: any) => {
       this.tasks = res;
