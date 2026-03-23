@@ -1,0 +1,14 @@
+<div class="app">
+  <aside class="sidebar">
+    <h2>Taskify</h2>
+
+    <nav>
+      <a routerLink="/tasks">Tasks</a>
+      <a (click)="logout()">Logout</a>
+    </nav>
+  </aside>
+
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

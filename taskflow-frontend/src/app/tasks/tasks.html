@@ -1,14 +1,16 @@
-<div class="tasks-container">
-  <h2>Your Tasks</h2>
+<h1>Tasks</h1>
 
-  <div class="task-input">
-    <input [(ngModel)]="newTask" placeholder="New task..." />
-    <button (click)="addTask()">Add</button>
-  </div>
+<div class="task-box">
+  <input [(ngModel)]="newTask.title" placeholder="New task..." />
+  <button (click)="addTask()">Add</button>
+</div>
 
-  <div class="task-list">
-    <div class="task" *ngFor="let task of tasks">
-      {{ task.title }}
+<div class="task-list">
+  <div class="task" *ngFor="let t of tasks">
+    <div>
+      <strong>{{ t.title }}</strong>
+      <p>{{ t.description }}</p>
     </div>
+    <button class="delete" (click)="deleteTask(t.id)">✕</button>
   </div>
 </div>

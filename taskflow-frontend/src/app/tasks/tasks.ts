@@ -28,7 +28,11 @@ export class TasksComponent implements OnInit {
       this.tasks = res;
     });
   }
-
+  deleteTask(id: number) {
+    this.api.deleteTask(id).subscribe(() => {
+      this.tasks = this.tasks.filter(t => t.id !== id);
+    });
+  }
   addTask() {
     this.api.createTask(this.newTask).subscribe(() => {
       this.loadTasks();

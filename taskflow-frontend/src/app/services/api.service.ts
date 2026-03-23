@@ -23,7 +23,9 @@ export class ApiService {
   getTasks() {
     return this.http.get(`${this.baseUrl}/tasks`, this.getAuthHeaders());
   }
-
+  deleteTask(id: number) {
+    return this.http.delete(`${this.baseUrl}/tasks/${id}`, this.getAuthHeaders());
+  }
   createTask(task: any) {
     return this.http.post(`${this.baseUrl}/tasks`, task, this.getAuthHeaders());
   }
