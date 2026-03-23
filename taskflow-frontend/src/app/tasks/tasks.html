@@ -1,11 +1,14 @@
-<h2>Tasks</h2>
-<button (click)="logout()">Logout</button>
-<input [(ngModel)]="newTask.title" placeholder="Title">
-<input [(ngModel)]="newTask.description" placeholder="Description">
-<button (click)="addTask()">Add</button>
+<div class="tasks-container">
+  <h2>Your Tasks</h2>
 
-<ul>
-  <li *ngFor="let t of tasks">
-    {{ t.title }} - {{ t.description }}
-  </li>
-</ul>
+  <div class="task-input">
+    <input [(ngModel)]="newTask" placeholder="New task..." />
+    <button (click)="addTask()">Add</button>
+  </div>
+
+  <div class="task-list">
+    <div class="task" *ngFor="let task of tasks">
+      {{ task.title }}
+    </div>
+  </div>
+</div>

@@ -1,9 +1,11 @@
-<h2>Login</h2>
+<div class="login-container">
+  <div class="login-card">
+    <h1>Taskify</h1>
+    <p class="subtitle">Sign in to your account</p>
 
-<input [(ngModel)]="email" placeholder="Email">
-<br><br>
+    <input type="email" placeholder="Email" [(ngModel)]="email" />
+    <input type="password" placeholder="Password" [(ngModel)]="password" />
 
-<input [(ngModel)]="password" type="password" placeholder="Password">
-<br><br>
-
-<button (click)="login()">Login</button>
+    <button (click)="login()">Login</button>
+  </div>
+</div>

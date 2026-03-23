@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ApiService {
 
-  private baseUrl = 'http://localhost:8080/api';
+  private baseUrl = 'https://api.taskify.pl/api';
 
   constructor(private http: HttpClient) {}
 
