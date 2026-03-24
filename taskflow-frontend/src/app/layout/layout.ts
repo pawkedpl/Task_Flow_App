@@ -14,5 +14,7 @@ export class LayoutComponent {
     localStorage.removeItem('token');
     window.location.href = '/login';
   }
-
+  toggleTheme() {
+    document.body.classList.toggle('dark');
+  }
 }

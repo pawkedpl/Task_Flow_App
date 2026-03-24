@@ -1,16 +1,19 @@
 <h1>Tasks</h1>
 
-<div class="task-box">
+<div class="task-input">
   <input [(ngModel)]="newTask.title" placeholder="New task..." />
   <button (click)="addTask()">Add</button>
 </div>
 
 <div class="task-list">
   <div class="task" *ngFor="let t of tasks">
-    <div>
-      <strong>{{ t.title }}</strong>
-      <p>{{ t.description }}</p>
-    </div>
+
+    <input type="checkbox" [(ngModel)]="t.completed" />
+
+    <span [class.done]="t.completed">
+      {{ t.title }}
+    </span>
+
     <button class="delete" (click)="deleteTask(t.id)">✕</button>
   </div>
 </div>

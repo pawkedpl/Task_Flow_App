@@ -1,60 +1,51 @@
-body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: #f5f7fb;
-}
-
-.login-container {
+.login-page {
   height: 100vh;
+
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
 }
 
-.login-card {
-  background: white;
-  padding: 40px;
-  border-radius: 16px;
-  width: 320px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+/* nagłówek */
+.login-header {
   text-align: center;
-}
-
-.login-card h1 {
-  margin-bottom: 5px;
-}
-
-.subtitle {
-  color: #888;
-  margin-bottom: 20px;
-}
-
-.login-card input {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 12px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 14px;
-}
-
-.login-card input:focus {
-  outline: none;
-  border-color: #4f46e5;
-}
-
-.login-card button {
-  width: 100%;
-  padding: 12px;
-  background: #4f46e5;
   color: white;
-  border: none;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.2s;
+  margin-bottom: 30px;
 }
 
-.login-card button:hover {
-  background: #4338ca;
+.login-header h1 {
+  font-size: 36px;
+  margin-bottom: 8px;
+}
+
+/* BOX */
+.login-box {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  width: 320px;
+
+  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
+
+/* INPUTY */
+.login-box input {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
+
+/* BUTTON */
+.login-box button {
+  background: #6366f1;
+  color: white;
+  font-weight: bold;
 }

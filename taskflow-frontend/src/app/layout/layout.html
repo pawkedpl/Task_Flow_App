@@ -1,11 +1,11 @@
-<div class="app">
+<div class="layout">
   <aside class="sidebar">
     <h2>Taskify</h2>
 
-    <nav>
-      <a routerLink="/tasks">Tasks</a>
-      <a (click)="logout()">Logout</a>
-    </nav>
+    <a routerLink="/tasks">Tasks</a>
+
+    <button (click)="toggleTheme()">🌙 Toggle</button>
+    <button (click)="logout()">Logout</button>
   </aside>
 
   <main class="content">

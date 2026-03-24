@@ -1,34 +1,30 @@
-.app {
+.layout {
   display: flex;
   height: 100vh;
-  font-family: 'Inter', sans-serif;
 }
 
 .sidebar {
-  width: 220px;
-  background: #111827;
+  width: 240px;
+  background: #0f172a;
   color: white;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.sidebar h2 {
-  margin-bottom: 30px;
-}
-
-.sidebar a {
-  display: block;
-  color: #9ca3af;
-  text-decoration: none;
-  margin-bottom: 10px;
-  transition: 0.2s;
-}
-
-.sidebar a:hover {
+.sidebar button, .sidebar a {
+  padding: 10px;
+  border-radius: 8px;
+  background: transparent;
   color: white;
+}
+
+.sidebar button:hover, .sidebar a:hover {
+  background: #1e293b;
 }
 
 .content {
   flex: 1;
-  padding: 30px;
-  background: #f9fafb;
+  padding: 40px;
 }

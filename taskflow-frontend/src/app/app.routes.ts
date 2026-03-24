@@ -10,9 +10,10 @@ export const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
-    canActivate: [authGuard], // 🔥 chroni cały layout
+    canActivate: [authGuard],
     children: [
-      { path: 'tasks', component: TasksComponent }
+      { path: 'tasks', component: TasksComponent },
+      { path: '', redirectTo: 'tasks', pathMatch: 'full' }
     ]
   },
 

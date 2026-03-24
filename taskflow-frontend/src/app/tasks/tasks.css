@@ -1,53 +1,35 @@
-h1 {
-  margin-bottom: 20px;
-}
-
-.task-box {
+.task-input {
   display: flex;
   gap: 10px;
   margin-bottom: 20px;
 }
 
-.task-box input {
-  flex: 1;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-}
-
-.task-box button {
-  padding: 10px 16px;
-  background: #4f46e5;
+.task-input button {
+  background: var(--primary);
   color: white;
-  border: none;
-  border-radius: 8px;
-}
-
-.task-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
 }
 
 .task {
-  background: white;
-  padding: 15px;
+  background: var(--card);
+  padding: 14px 18px;
   border-radius: 12px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+  gap: 10px;
+  justify-content: space-between;
+  transition: 0.2s;
 }
 
-.task p {
-  margin: 5px 0 0;
-  color: #6b7280;
+.task:hover {
+  transform: translateY(-2px);
+}
+
+.done {
+  text-decoration: line-through;
+  opacity: 0.5;
 }
 
 .delete {
-  background: transparent;
-  border: none;
   color: #ef4444;
-  font-size: 18px;
-  cursor: pointer;
+  background: transparent;
 }

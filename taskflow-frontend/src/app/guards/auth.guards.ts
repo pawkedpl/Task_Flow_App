@@ -6,10 +6,12 @@ export const authGuard: CanActivateFn = () => {
   const router = inject(Router);
   const token = localStorage.getItem('token');
 
-  if (token) {
+  // 🔐 jeśli token istnieje → wpuszczamy
+  if (token && token !== 'null' && token !== 'undefined') {
     return true;
-  } else {
-    router.navigate(['/']);
-    return false;
   }
+
+  // 🚫 brak tokena → przekierowanie na login
+  router.navigate(['/login']);
+  return false;
 };
