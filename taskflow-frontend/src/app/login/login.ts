@@ -15,25 +15,54 @@ export class LoginComponent {
   email: string = '';
   password: string = '';
 
+  isRegister: boolean = false; // 🔥 tryb
+
   constructor(private api: ApiService, private router: Router) {}
+
+  submit() {
+    if (this.isRegister) {
+      this.register();
+    } else {
+      this.login();
+    }
+  }
 
   login() {
     this.api.login({
       email: this.email,
       password: this.password
-    }).subscribe(
-      (res: any) => {
-        console.log('TOKEN:', res);
-        // 🔐 zapis tokena
+    }).subscribe({
+      next: (res: any) => {
         localStorage.setItem('token', res.toString());
-
-        // 🚀 przekierowanie
         this.router.navigate(['/tasks']);
       },
-      (err: any) => {
-        console.error('LOGIN ERROR:', err); // 🔥 DEBUG
+      error: () => {
         alert('Login failed');
       }
-    );
+    });
+  }
+
+  register() {
+    this.api.register({
+      email: this.email,
+      password: this.password
+    }).subscribe({
+      next: (res: any) => {
+        localStorage.setItem('token', res.toString());
+        this.router.navigate(['/tasks']);
+      },
+      error: () => {
+        alert('Register failed');
+      }
+    });
+  }
+  ngOnInit() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.router.navigate(['/tasks']);
+    }
+  }
+  toggleMode() {
+    this.isRegister = !this.isRegister;
   }
 }

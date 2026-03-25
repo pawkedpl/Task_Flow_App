@@ -15,13 +15,16 @@ export class ApiService {
         responseType: 'text'
       });
   }
-
   register(data: any) {
-    return this.http.post(`${this.baseUrl}/auth/register`, data);
+    return this.http.post(`${this.baseUrl}/auth/register`, data, {
+      responseType: 'text'
+    });
   }
-
+  getWeekTasks(start: string, end: string) {
+    return this.http.get<any[]>(`${this.baseUrl}/tasks/week?start=${start}&end=${end}`, this.getAuthHeaders());
+  }
   getTasks() {
-    return this.http.get(`${this.baseUrl}/tasks`, this.getAuthHeaders());
+    return this.http.get<any[]>(`${this.baseUrl}/tasks`, this.getAuthHeaders());
   }
   deleteTask(id: number) {
     return this.http.delete(`${this.baseUrl}/tasks/${id}`, this.getAuthHeaders());

@@ -3,6 +3,7 @@
   height: 100vh;
 }
 
+/* SIDEBAR */
 .sidebar {
   width: 240px;
   background: #0f172a;
@@ -10,21 +11,51 @@
   padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
 }
 
-.sidebar button, .sidebar a {
+.sidebar h2 {
+  margin-bottom: 20px;
+}
+
+/* MENU */
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.menu a {
+  padding: 10px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: white;
+}
+
+.menu a.active {
+  background: #6366f1;
+}
+
+/* HOVER */
+.menu a:hover {
+  background: #1e293b;
+}
+
+/* BUTTONY */
+.sidebar button {
+  margin-top: 10px;
   padding: 10px;
   border-radius: 8px;
   background: transparent;
   color: white;
 }
 
-.sidebar button:hover, .sidebar a:hover {
+.sidebar button:hover {
   background: #1e293b;
 }
 
+/* CONTENT */
 .content {
   flex: 1;
-  padding: 40px;
+  padding: 30px;
+  background: var(--bg);
 }

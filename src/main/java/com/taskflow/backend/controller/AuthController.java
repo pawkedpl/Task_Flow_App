@@ -6,7 +6,7 @@ import com.taskflow.backend.service.AuthService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "https://taskify.pl")
+@CrossOrigin(origins = "https://taskify.pl") // 🔥 na dev lepiej *
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -19,7 +19,8 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
-        return ResponseEntity.ok(authService.register(request));
+        String token = authService.register(request);
+        return ResponseEntity.ok(token);
     }
 
     @PostMapping("/login")

@@ -5,11 +5,21 @@
     <p>Organize your tasks easily</p>
   </div>
 
-  <div class="login-box">
-    <input [(ngModel)]="email" placeholder="Email" />
-    <input [(ngModel)]="password" type="password" placeholder="Password" />
+  <!-- 🔥 FORM = ENTER DZIAŁA -->
+  <form class="login-box" (ngSubmit)="submit()">
 
-    <button (click)="login()">Login</button>
-  </div>
+    <input [(ngModel)]="email" name="email" placeholder="Email" required />
+    <input [(ngModel)]="password" name="password" type="password" placeholder="Password" required />
+
+    <button type="submit">
+      {{ isRegister ? 'Register' : 'Login' }}
+    </button>
+
+    <!-- 🔥 SWITCH -->
+    <p style="text-align:center; font-size: 13px; cursor:pointer" (click)="toggleMode()">
+      {{ isRegister ? 'Already have an account? Login' : 'No account? Register' }}
+    </p>
+
+  </form>
 
 </div>

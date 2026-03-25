@@ -1,11 +1,18 @@
 <div class="layout">
   <aside class="sidebar">
+
     <h2>Taskify</h2>
 
-    <a routerLink="/tasks">Tasks</a>
+    <nav class="menu">
+      <a routerLink="/dashboard" routerLinkActive="active">📅 Dashboard</a>
+      <a routerLink="/tasks" routerLinkActive="active">📋 Tasks</a>
+    </nav>
+
+    <div style="flex:1"></div>
 
     <button (click)="toggleTheme()">🌙 Toggle</button>
     <button (click)="logout()">Logout</button>
+
   </aside>
 
   <main class="content">

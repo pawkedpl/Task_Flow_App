@@ -23,13 +23,28 @@ public class AuthService {
         this.jwtUtil = jwtUtil;
     }
 
-    public User register(RegisterRequest request) {
+    public String register(RegisterRequest request) {
+
+        // 🔥 sprawdzamy czy user już istnieje
+        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
+            throw new RuntimeException("User already exists");
+        }
+
+        // 🔥 walidacja (prosta)
+        if (request.getEmail() == null || request.getEmail().isEmpty()
+                || request.getPassword() == null || request.getPassword().length() < 4) {
+            throw new RuntimeException("Invalid data");
+        }
+
         User user = new User();
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRole("USER");
 
-        return userRepository.save(user);
+        userRepository.save(user);
+
+        // 🔥 od razu zwracamy token (lepszy UX)
+        return jwtUtil.generateToken(user.getEmail());
     }
 
     public String login(LoginRequest request) {

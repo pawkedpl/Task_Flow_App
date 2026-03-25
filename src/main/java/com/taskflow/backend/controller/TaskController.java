@@ -4,7 +4,9 @@ import com.taskflow.backend.model.Task;
 import com.taskflow.backend.service.TaskService;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
+
 @RestController
 @RequestMapping("/api/tasks")
 public class TaskController {
@@ -23,6 +25,17 @@ public class TaskController {
     @GetMapping
     public List<Task> getMyTasks() {
         return taskService.getMyTasks();
+    }
+
+    @GetMapping("/week")
+    public List<Task> getWeekTasks(
+            @RequestParam String start,
+            @RequestParam String end
+    ) {
+        return taskService.getTasksForWeek(
+                LocalDate.parse(start),
+                LocalDate.parse(end)
+        );
     }
 
     @PutMapping("/{id}")
