@@ -1,24 +1,40 @@
 <div class="dashboard">
 
-  <h2>This Week</h2>
+  <div class="header">
+    <h2>This Week</h2>
+    <p>Your weekly overview</p>
+  </div>
 
-  <div class="week-grid">
+  <div class="calendar-card">
 
-    <div class="day" *ngFor="let d of weekDays">
-
-      <div class="day-header">
-        <strong>{{ d.name }}</strong><br>
-        <small>{{ d.date }}</small>
+    <!-- DAYS -->
+    <div class="week-grid">
+      <div class="day" *ngFor="let d of weekDays">
+        <div class="day-header">
+          <strong>{{ d.name }}</strong>
+          <small>{{ d.date }}</small>
+        </div>
       </div>
+    </div>
 
-      <div class="tasks">
-        <div class="task"
-             *ngFor="let t of d.tasks"
-             (click)="markDone(t)">
+    <!-- EMPTY STATE -->
+    <div *ngIf="bars.length === 0" class="empty">
+      <h3>No tasks yet</h3>
+      <p>Add tasks to see them here 🚀</p>
+    </div>
 
-          <span [style.textDecoration]="t.status === 'DONE' ? 'line-through' : 'none'">
-            {{ t.title }}
-          </span>
+    <!-- TIMELINE -->
+    <div class="timeline" *ngIf="bars.length > 0">
+
+      <div class="row" *ngFor="let bar of bars">
+
+        <div
+          class="bar"
+          [style.gridColumn]="bar.startIndex + 1 + ' / span ' + bar.length"
+          [class.done]="bar.status === 'DONE'"
+          (click)="markDone(bar)">
+
+          {{ bar.title }}
 
         </div>
 
@@ -29,3 +45,4 @@
   </div>
 
 </div>
+

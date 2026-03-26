@@ -1,29 +1,107 @@
 .dashboard {
-  padding: 20px;
+  padding: 30px;
+  color: var(--text);
 }
 
+/* HEADER */
+.header h2 {
+  font-size: 28px;
+  margin-bottom: 5px;
+}
+
+.header p {
+  color: #94a3b8;
+  margin-bottom: 20px;
+}
+
+/* CARD BACKGROUND */
+.calendar-card {
+  background: var(--card);
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+/* DAYS */
 .week-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 15px;
+  gap: 12px;
+  margin-bottom: 20px;
 }
 
 .day {
-  background: var(--card);
+  background: rgba(255,255,255,0.04);
   border-radius: 12px;
   padding: 10px;
-  min-height: 150px;
+  text-align: center;
+  font-size: 13px;
 }
 
 .day-header {
-  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
-.task {
-  background: #6366f1;
-  color: white;
-  padding: 6px;
-  border-radius: 8px;
-  margin-bottom: 6px;
-  font-size: 13px;
+.day strong {
+  font-size: 14px;
 }
+
+.day small {
+  color: #94a3b8;
+}
+
+/* EMPTY STATE */
+.empty {
+  text-align: center;
+  padding: 40px 0;
+  opacity: 0.8;
+}
+
+.empty h3 {
+  margin-bottom: 5px;
+}
+
+.empty p {
+  color: #94a3b8;
+}
+
+/* TIMELINE */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  height: 36px;
+}
+
+/* BARS */
+.bar {
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: white;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  transition: 0.2s;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.bar:hover {
+  transform: scale(1.02);
+}
+
+.bar.done {
+  background: #22c55e;
+  opacity: 0.7;
+  text-decoration: line-through;
+}
+

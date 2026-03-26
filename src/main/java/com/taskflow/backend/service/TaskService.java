@@ -6,6 +6,8 @@ import com.taskflow.backend.repository.TaskRepository;
 import com.taskflow.backend.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -14,7 +16,6 @@ public class TaskService {
     private final TaskRepository taskRepository;
     private final UserRepository userRepository;
 
-    
     public TaskService(TaskRepository taskRepository, UserRepository userRepository) {
         this.taskRepository = taskRepository;
         this.userRepository = userRepository;
@@ -24,7 +25,18 @@ public class TaskService {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        return taskRepository.findByUser(user);
+        return taskRepository.findByUserId(user.getId());
+    }
+
+    //  NOWA METODA WEEK
+    public List<Task> getTasksForWeek(String email, String start, String end) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        LocalDateTime startDate = LocalDate.parse(start).atStartOfDay();
+        LocalDateTime endDate = LocalDate.parse(end).atTime(23, 59, 59);
+
+        return taskRepository.findTasksForWeek(user.getId(), startDate, endDate);
     }
 
     public Task create(Task task, String email) {
@@ -50,9 +62,13 @@ public class TaskService {
 
         taskRepository.delete(task);
     }
+
     public Task updateStatus(Long id, String status) {
-        Task task = taskRepository.findById(id).orElseThrow(() -> new RuntimeException("Task not found"));
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Task not found"));
+
         task.setStatus(status);
         return taskRepository.save(task);
     }
 }
+

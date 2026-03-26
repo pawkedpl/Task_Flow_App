@@ -18,13 +18,22 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-
     @GetMapping
     public List<Task> getTasks(Authentication authentication) {
         String email = authentication.getName();
         return taskService.getTasksByUser(email);
     }
 
+    // 🔥 NOWY ENDPOINT WEEK
+    @GetMapping("/week")
+    public List<Task> getTasksForWeek(
+            @RequestParam String start,
+            @RequestParam String end,
+            Authentication authentication
+    ) {
+        String email = authentication.getName();
+        return taskService.getTasksForWeek(email, start, end);
+    }
 
     @PostMapping
     public Task create(@RequestBody Task task, Authentication authentication) {
@@ -36,9 +45,11 @@ public class TaskController {
     public Task updateStatus(@PathVariable Long id, @RequestParam String status) {
         return taskService.updateStatus(id, status);
     }
+
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id, Authentication authentication) {
         String email = authentication.getName();
         taskService.delete(id, email);
     }
 }
+
