@@ -1,44 +1,56 @@
-<div class="tasks-container">
+<div class="tasks-page">
 
-  <h2>Tasks</h2>
-
-  <div class="task-input">
-    <input [(ngModel)]="newTask.title" placeholder="Task title">
-
-    <input type="datetime-local" [(ngModel)]="newTask.startDate">
-    <input type="datetime-local" [(ngModel)]="newTask.endDate">
-
-    <button (click)="addTask()">+ Add</button>
+  <!-- HEADER -->
+  <div class="header">
+    <h1>Tasks</h1>
+    <p>Stay organized and productive</p>
   </div>
 
-  <div class="tasks-list">
-    <div class="task-card"
-         *ngFor="let t of tasks"
-         [class.done]="t.status === 'DONE'">
+  <!-- FORM -->
+  <div class="task-form-card">
+    <input type="text" [(ngModel)]="newTask.title" placeholder="Task title">
+    <input type="datetime-local" [(ngModel)]="newTask.startDate">
+    <input type="datetime-local" [(ngModel)]="newTask.endDate">
+    <button (click)="addTask()">Add Task</button>
+  </div>
 
-      <div class="left">
-        <div class="title">{{ t.title }}</div>
+  <!-- 🔥 EMPTY STATE -->
+  <div class="empty-state" *ngIf="tasks.length === 0">
+    <h2>No tasks yet</h2>
+    <p>Add your first task to get started 🚀</p>
+  </div>
 
-        <div class="dates">
-          {{ t.startDate | date:'short' }}
-          →
-          {{ t.endDate | date:'short' }}
-        </div>
+  <!-- TASK LIST -->
+  <div class="task-list" *ngIf="tasks.length > 0">
+
+    <div
+      class="task-item"
+      *ngFor="let task of tasks"
+      [class.done]="task.status === 'DONE'"
+    >
+
+      <div class="status-bar"></div>
+
+      <div class="content">
+        <h3>{{ task.title }}</h3>
+        <span class="time">
+          {{ task.startDate | date:'short' }} →
+          {{ task.endDate | date:'short' }}
+        </span>
       </div>
 
-      <div class="right">
-        <span class="badge"
-              [class.done]="t.status === 'DONE'">
-          {{ t.status }}
-        </span>
+      <div class="actions">
+        <button class="status-btn" (click)="toggleStatus(task)">
+          {{ task.status === 'DONE' ? 'UNDO' : 'DONE' }}
+        </button>
 
-        <button class="delete"
-                (click)="deleteTask(t.id)">
-          ✕
+        <button class="delete" (click)="deleteTask(task.id)">
+          ✖
         </button>
       </div>
 
     </div>
+
   </div>
 
 </div>

@@ -32,7 +32,13 @@ export class ApiService {
   createTask(task: any) {
     return this.http.post(`${this.baseUrl}/tasks`, task, this.getAuthHeaders());
   }
-
+  updateTaskStatus(id: number, status: string) {
+    return this.http.put(
+      `${this.baseUrl}/tasks/${id}/status?status=${status}`,
+      {},
+      this.getAuthHeaders()
+    );
+  }
   private getAuthHeaders() {
     const token = localStorage.getItem('token');
     console.log("TOKEN:", token);

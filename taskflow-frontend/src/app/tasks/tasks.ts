@@ -49,6 +49,15 @@ export class TasksComponent implements OnInit {
       }
     });
   }
+  toggleStatus(task: any) {
+    const newStatus = task.status === 'DONE' ? 'TODO' : 'DONE';
+
+    this.api.updateTaskStatus(task.id, newStatus).subscribe(() => {
+      task.status = newStatus;
+
+      this.cdr.detectChanges();
+    });
+  }
 
   addTask() {
     if (!this.newTask.title.trim()) return;
