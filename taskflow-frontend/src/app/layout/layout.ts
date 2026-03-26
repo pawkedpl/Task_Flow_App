@@ -1,20 +1,13 @@
 import { Component } from '@angular/core';
-import { RouterOutlet, RouterLink } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
+import { SidebarComponent } from '../components/sidebar/sidebar';
 
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [RouterOutlet, RouterLink],
+  imports: [RouterOutlet, SidebarComponent],
   templateUrl: './layout.html',
   styleUrl: './layout.css'
 })
-export class LayoutComponent {
+export class LayoutComponent {}
 
-  logout() {
-    localStorage.removeItem('token');
-    window.location.href = '/login';
-  }
-  toggleTheme() {
-    document.body.classList.toggle('dark');
-  }
-}

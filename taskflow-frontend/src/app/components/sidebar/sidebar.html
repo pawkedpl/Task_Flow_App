@@ -1,0 +1,37 @@
+
+<div class="sidebar" [class.collapsed]="collapsed">
+
+  <!-- TOP -->
+  <div>
+    <div class="logo" routerLink="/home">
+      {{ collapsed ? 'T' : 'Taskify' }}
+    </div>
+
+    <nav class="menu">
+      <a routerLink="/home" routerLinkActive="active">
+        🏠 <span *ngIf="!collapsed">Home</span>
+      </a>
+
+      <a routerLink="/dashboard" routerLinkActive="active">
+        📅 <span *ngIf="!collapsed">Dashboard</span>
+      </a>
+
+      <a routerLink="/tasks" routerLinkActive="active">
+        📋 <span *ngIf="!collapsed">Tasks</span>
+      </a>
+    </nav>
+  </div>
+
+  <!-- BOTTOM -->
+  <div class="bottom">
+    <button (click)="toggleSidebar()">☰</button>
+
+    <button (click)="toggleTheme()">🌙</button>
+
+    <button (click)="logout()">
+      🚪 <span *ngIf="!collapsed">Logout</span>
+    </button>
+  </div>
+
+</div>
+

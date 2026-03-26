@@ -1,0 +1,83 @@
+.sidebar {
+  width: 240px;
+  height: 100vh;
+  background: #0f172a;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 25px 15px;
+  transition: width 0.3s ease;
+}
+
+/* 🔥 COLLAPSED */
+.sidebar.collapsed {
+  width: 80px;
+}
+
+/* LOGO */
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  cursor: pointer;
+  text-align: center;
+}
+
+/* MENU */
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.menu a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #cbd5f5;
+  transition: 0.2s;
+}
+
+/* CENTER ICONS WHEN COLLAPSED */
+.sidebar.collapsed .menu a {
+  justify-content: center;
+}
+
+/* HOVER */
+.menu a:hover {
+  background: rgba(255,255,255,0.05);
+  color: white;
+}
+
+/* ACTIVE */
+.menu a.active {
+  background: #1e293b;
+  color: white;
+}
+
+/* BOTTOM */
+.bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bottom button {
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background: #1e293b;
+  color: white;
+  cursor: pointer;
+}
+
+/* CENTER BUTTONS WHEN COLLAPSED */
+.sidebar.collapsed .bottom button {
+  display: flex;
+  justify-content: center;
+}
+
