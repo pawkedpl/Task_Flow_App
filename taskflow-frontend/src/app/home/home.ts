@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ApiService } from '../services/api.service';
 
 @Component({
@@ -13,20 +13,49 @@ export class HomeComponent implements OnInit {
   total = 0;
   overdue = 0;
 
-  constructor(private api: ApiService) {}
+  loading = false;
+
+  constructor(
+    private api: ApiService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
-    this.api.getTasks().subscribe((tasks: any[]) => {
-      this.total = tasks.length;
+    this.loadStats();
+  }
 
-      const now = new Date();
+  loadStats() {
+    this.loading = true;
 
-      this.completed = tasks.filter(t => t.status === 'DONE').length;
+    this.api.getTasks().subscribe({
+      next: (tasks: any[]) => {
+        console.log('HOME TASKS:', tasks);
 
-      this.overdue = tasks.filter(t =>
-        t.status !== 'DONE' &&
-        new Date(t.endDate) < now
-      ).length;
+        this.total = tasks.length;
+
+        const now = new Date();
+
+        this.completed = tasks.filter(t => t.status === 'DONE').length;
+
+        this.overdue = tasks.filter(t =>
+          t.status !== 'DONE' &&
+          new Date(t.endDate) < now
+        ).length;
+
+        this.loading = false;
+
+        // 🔥 KLUCZOWE
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error(err);
+        this.loading = false;
+      }
     });
+  }
+
+  // 🔥 opcjonalnie: ręczny refresh
+  refresh() {
+    this.loadStats();
   }
 }

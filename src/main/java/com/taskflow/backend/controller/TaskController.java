@@ -18,21 +18,24 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-    // ✅ GET tasks dla zalogowanego użytkownika
+
     @GetMapping
     public List<Task> getTasks(Authentication authentication) {
         String email = authentication.getName();
         return taskService.getTasksByUser(email);
     }
 
-    // ✅ CREATE task
+
     @PostMapping
     public Task create(@RequestBody Task task, Authentication authentication) {
         String email = authentication.getName();
         return taskService.create(task, email);
     }
 
-    // ✅ DELETE task
+    @PutMapping("/{id}/status")
+    public Task updateStatus(@PathVariable Long id, @RequestParam String status) {
+        return taskService.updateStatus(id, status);
+    }
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id, Authentication authentication) {
         String email = authentication.getName();
