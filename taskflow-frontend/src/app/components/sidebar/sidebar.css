@@ -1,16 +1,26 @@
 .sidebar {
   width: 240px;
   height: 100vh;
-  background: #0f172a;
   color: white;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 25px 15px;
   transition: width 0.3s ease;
+
+  /* ANIMATED GRADIENT */
+  background: linear-gradient(270deg, #0f172a, #1e293b, #0f172a);
+  background-size: 400% 400%;
+  animation: gradientMove 12s ease infinite;
 }
 
-/* 🔥 COLLAPSED */
+@keyframes gradientMove {
+  0% { background-position: 0% }
+  50% { background-position: 100% }
+  100% { background-position: 0% }
+}
+
+/* COLLAPSE */
 .sidebar.collapsed {
   width: 80px;
 }
@@ -32,6 +42,7 @@
 }
 
 .menu a {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -39,24 +50,61 @@
   border-radius: 10px;
   text-decoration: none;
   color: #cbd5f5;
-  transition: 0.2s;
-}
-
-/* CENTER ICONS WHEN COLLAPSED */
-.sidebar.collapsed .menu a {
-  justify-content: center;
+  transition: all 0.2s ease;
 }
 
 /* HOVER */
 .menu a:hover {
   background: rgba(255,255,255,0.05);
   color: white;
+  transform: translateX(3px);
 }
 
 /* ACTIVE */
 .menu a.active {
-  background: #1e293b;
+  background: rgba(255,255,255,0.08);
   color: white;
+}
+
+/* INDICATOR (JIRA STYLE) */
+.indicator {
+  position: absolute;
+  left: 0;
+  width: 4px;
+  height: 0%;
+  background: #3b82f6;
+  border-radius: 10px;
+  transition: 0.2s;
+}
+
+.menu a.active .indicator {
+  height: 60%;
+}
+
+/* CENTER ICONS */
+.sidebar.collapsed .menu a {
+  justify-content: center;
+}
+
+/* TOOLTIP */
+.sidebar.collapsed .menu a::after {
+  content: attr(data-label);
+  position: absolute;
+  left: 70px;
+  background: #1e293b;
+  padding: 6px 10px;
+  border-radius: 6px;
+  opacity: 0;
+  transform: translateY(-50%);
+  top: 50%;
+  pointer-events: none;
+  transition: 0.2s;
+  font-size: 12px;
+}
+
+.sidebar.collapsed .menu a:hover::after {
+  opacity: 1;
+  left: 85px;
 }
 
 /* BOTTOM */
@@ -67,17 +115,35 @@
 }
 
 .bottom button {
+  position: relative;
   padding: 10px;
   border-radius: 10px;
   border: none;
-  background: #1e293b;
+  background: rgba(255,255,255,0.05);
   color: white;
   cursor: pointer;
+  transition: 0.2s;
 }
 
-/* CENTER BUTTONS WHEN COLLAPSED */
-.sidebar.collapsed .bottom button {
-  display: flex;
-  justify-content: center;
+.bottom button:hover {
+  background: rgba(255,255,255,0.15);
+  transform: scale(1.05);
+}
+
+/* TOOLTIP BUTTON */
+.sidebar.collapsed .bottom button::after {
+  content: attr(data-label);
+  position: absolute;
+  left: 70px;
+  background: #1e293b;
+  padding: 6px 10px;
+  border-radius: 6px;
+  opacity: 0;
+  transition: 0.2s;
+}
+
+.sidebar.collapsed .bottom button:hover::after {
+  opacity: 1;
+  left: 85px;
 }
 

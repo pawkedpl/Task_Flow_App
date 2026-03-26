@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -9,12 +9,32 @@ import { CommonModule } from '@angular/common';
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.css'
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit {
 
   collapsed = false;
 
+  ngOnInit() {
+    const saved = localStorage.getItem('sidebarCollapsed');
+    this.collapsed = saved === 'true';
+
+    this.checkScreen();
+  }
+
   toggleSidebar() {
     this.collapsed = !this.collapsed;
+    localStorage.setItem('sidebarCollapsed', String(this.collapsed));
+  }
+
+  /* 📱 AUTO MOBILE */
+  @HostListener('window:resize')
+  onResize() {
+    this.checkScreen();
+  }
+
+  checkScreen() {
+    if (window.innerWidth < 768) {
+      this.collapsed = true;
+    }
   }
 
   logout() {

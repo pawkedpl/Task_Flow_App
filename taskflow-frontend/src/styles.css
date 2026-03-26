@@ -10,13 +10,18 @@
   --bg: #f5f7fb;
   --card: #ffffff;
   --text: #1e293b;
+  --muted: #64748b;
+  --border: #e2e8f0;
   --primary: #6366f1;
 }
 
-.dark {
+/* 🌙 DARK MODE */
+body.dark {
   --bg: #0f172a;
   --card: #1e293b;
   --text: #f1f5f9;
+  --muted: #94a3b8;
+  --border: #334155;
 }
 
 /* BODY */
@@ -31,9 +36,11 @@ body {
 input {
   padding: 12px 14px;
   border-radius: 10px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border);
   outline: none;
   transition: 0.2s;
+  background: var(--card);
+  color: var(--text);
 }
 
 input:focus {
@@ -52,6 +59,8 @@ button {
 button:hover {
   transform: scale(1.03);
 }
+
+/* TOAST */
 .toast {
   position: fixed;
   bottom: 20px;
@@ -62,18 +71,25 @@ button:hover {
   border-radius: 10px;
 }
 
+/* LOGIN PAGE */
 .login-page {
   height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #0f172a, #1e293b);
+
+  /* ✨ działa w obu trybach */
+  background: linear-gradient(135deg, var(--bg), #1e293b);
 }
 
+/* LOGIN BOX */
 .login-box {
-  background: white;
+  background: var(--card);
   padding: 30px;
   border-radius: 16px;
   width: 320px;
+  color: var(--text);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
+
