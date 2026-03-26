@@ -1,19 +1,45 @@
-<h1>Tasks</h1>
+<div class="tasks-container">
 
-<div class="task-input">
-  <input [(ngModel)]="newTask.title" placeholder="New task..." />
-  <button (click)="addTask()">Add</button>
-</div>
+  <h2>Tasks</h2>
 
-<div class="task-list">
-  <div class="task" *ngFor="let t of tasks">
+  <div class="task-input">
+    <input [(ngModel)]="newTask.title" placeholder="Task title">
 
-    <input type="checkbox" [(ngModel)]="t.completed" />
+    <input type="datetime-local" [(ngModel)]="newTask.startDate">
+    <input type="datetime-local" [(ngModel)]="newTask.endDate">
 
-    <span [class.done]="t.completed">
-      {{ t.title }}
-    </span>
-
-    <button class="delete" (click)="deleteTask(t.id)">✕</button>
+    <button (click)="addTask()">+ Add</button>
   </div>
+
+  <div class="tasks-list">
+    <div class="task-card"
+         *ngFor="let t of tasks"
+         [class.done]="t.status === 'DONE'">
+
+      <div class="left">
+        <div class="title">{{ t.title }}</div>
+
+        <div class="dates">
+          {{ t.startDate | date:'short' }}
+          →
+          {{ t.endDate | date:'short' }}
+        </div>
+      </div>
+
+      <div class="right">
+        <span class="badge"
+              [class.done]="t.status === 'DONE'">
+          {{ t.status }}
+        </span>
+
+        <button class="delete"
+                (click)="deleteTask(t.id)">
+          ✕
+        </button>
+      </div>
+
+    </div>
+  </div>
+
 </div>
+

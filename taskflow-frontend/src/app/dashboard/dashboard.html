@@ -12,9 +12,14 @@
       </div>
 
       <div class="tasks">
+        <div class="task"
+             *ngFor="let t of d.tasks"
+             (click)="markDone(t)">
 
-        <div class="task" *ngFor="let t of d.tasks">
-          <span>{{ t.title }}</span>
+          <span [style.textDecoration]="t.status === 'DONE' ? 'line-through' : 'none'">
+            {{ t.title }}
+          </span>
+
         </div>
 
       </div>

@@ -28,12 +28,16 @@ export class DashboardComponent implements OnInit {
     const start = this.getStartOfWeek(today);
     const end = this.getEndOfWeek(today);
 
-    const startStr = this.formatDate(start);
-    const endStr = this.formatDate(end);
+    this.api.getTasks().subscribe((tasks: any[]) => {
 
-    this.api.getWeekTasks(startStr, endStr).subscribe((tasks: any[]) => {
-      this.mapTasks(tasks, start);
+      const filtered = tasks.filter(t => {
+        if (!t.startDate) return false;
 
+        const date = new Date(t.startDate);
+        return date >= start && date <= end;
+      });
+
+      this.mapTasks(filtered, start);
       this.cdr.detectChanges();
     });
   }
@@ -47,7 +51,9 @@ export class DashboardComponent implements OnInit {
 
       const dayStr = this.formatDate(day);
 
-      const dayTasks = tasks.filter(t => t.dueDate === dayStr);
+      const dayTasks = tasks.filter(t => {
+        return t.startDate?.startsWith(dayStr);
+      });
 
       this.weekDays.push({
         date: dayStr,
@@ -74,4 +80,13 @@ export class DashboardComponent implements OnInit {
   formatDate(date: Date): string {
     return date.toISOString().split('T')[0];
   }
+
+  markDone(task: any) {
+    task.status = task.status === 'DONE' ? 'TODO' : 'DONE';
+
+    this.api.createTask(task).subscribe(() => {
+      this.loadWeek();
+    });
+  }
 }
+

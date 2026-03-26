@@ -7,14 +7,20 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-tasks',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './tasks.html'
+  templateUrl: './tasks.html',
+  styleUrls: ['./tasks.css']
 })
 export class TasksComponent implements OnInit {
 
   tasks: any[] = [];
   loading = false;
 
-  newTask = { title: '', description: '', completed: false };
+  newTask = {
+    title: '',
+    startDate: '',
+    endDate: '',
+    status: 'TODO'
+  };
 
   constructor(
     private api: ApiService,
@@ -29,7 +35,7 @@ export class TasksComponent implements OnInit {
     this.loading = true;
 
     this.api.getTasks().subscribe({
-      next: (res) => {
+      next: (res: any) => {
         console.log('API RESPONSE:', res);
 
         this.tasks = res;
@@ -37,7 +43,7 @@ export class TasksComponent implements OnInit {
 
         this.cdr.detectChanges();
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error(err);
         this.loading = false;
       }
@@ -49,7 +55,14 @@ export class TasksComponent implements OnInit {
 
     this.api.createTask(this.newTask).subscribe(() => {
       this.loadTasks();
-      this.newTask = { title: '', description: '', completed: false };
+
+
+      this.newTask = {
+        title: '',
+        startDate: '',
+        endDate: '',
+        status: 'TODO'
+      };
     });
   }
 

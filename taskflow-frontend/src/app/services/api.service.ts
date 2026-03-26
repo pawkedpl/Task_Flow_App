@@ -35,7 +35,7 @@ export class ApiService {
 
   private getAuthHeaders() {
     const token = localStorage.getItem('token');
-
+    console.log("TOKEN:", token);
     return {
       headers: {
         Authorization: `Bearer ${token}`

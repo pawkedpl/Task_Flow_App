@@ -5,6 +5,7 @@ import { LayoutComponent } from './layout/layout';
 import { TasksComponent } from './tasks/tasks';
 import { DashboardComponent } from './dashboard/dashboard';
 import { authGuard } from './guards/auth.guards';
+import { HomeComponent } from './home/home';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -14,17 +15,11 @@ export const routes: Routes = [
     component: LayoutComponent,
     canActivate: [authGuard],
     children: [
-      {
-        path: 'dashboard',
-        component: DashboardComponent,
-        runGuardsAndResolvers: 'always'
-      },
-      {
-        path: 'tasks',
-        component: TasksComponent,
-        runGuardsAndResolvers: 'always'
-      },
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+
+      { path: 'home', component: HomeComponent },
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'tasks', component: TasksComponent }
     ]
   },
 

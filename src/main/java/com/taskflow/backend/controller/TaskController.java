@@ -2,13 +2,14 @@ package com.taskflow.backend.controller;
 
 import com.taskflow.backend.model.Task;
 import com.taskflow.backend.service.TaskService;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/tasks")
+@CrossOrigin(origins = "*")
 public class TaskController {
 
     private final TaskService taskService;
@@ -17,34 +18,24 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-    @PostMapping
-    public Task create(@RequestBody Task task) {
-        return taskService.create(task);
-    }
-
+    // ✅ GET tasks dla zalogowanego użytkownika
     @GetMapping
-    public List<Task> getMyTasks() {
-        return taskService.getMyTasks();
+    public List<Task> getTasks(Authentication authentication) {
+        String email = authentication.getName();
+        return taskService.getTasksByUser(email);
     }
 
-    @GetMapping("/week")
-    public List<Task> getWeekTasks(
-            @RequestParam String start,
-            @RequestParam String end
-    ) {
-        return taskService.getTasksForWeek(
-                LocalDate.parse(start),
-                LocalDate.parse(end)
-        );
+    // ✅ CREATE task
+    @PostMapping
+    public Task create(@RequestBody Task task, Authentication authentication) {
+        String email = authentication.getName();
+        return taskService.create(task, email);
     }
 
-    @PutMapping("/{id}")
-    public Task update(@PathVariable Long id, @RequestBody Task task) {
-        return taskService.update(id, task);
-    }
-
+    // ✅ DELETE task
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        taskService.delete(id);
+    public void delete(@PathVariable Long id, Authentication authentication) {
+        String email = authentication.getName();
+        taskService.delete(id, email);
     }
 }

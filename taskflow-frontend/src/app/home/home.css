@@ -1,0 +1,62 @@
+.home {
+  padding: 20px;
+}
+
+.title {
+  margin-bottom: 20px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+/* GRID */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+/* CARD */
+.card {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  transition: 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* ICON */
+.icon {
+  font-size: 30px;
+}
+
+/* COLORS */
+.completed {
+  border-left: 5px solid #22c55e;
+}
+
+.total {
+  border-left: 5px solid #6366f1;
+}
+
+.overdue {
+  border-left: 5px solid #ef4444;
+}
+
+/* TEXT */
+.card p {
+  margin: 0;
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+.card h2 {
+  margin: 0;
+  font-size: 24px;
+}
