@@ -1,6 +1,33 @@
 <div class="home">
 
-  <h1 class="title">📊 Statistics</h1>
+  <!-- TODAY TASKS -->
+  <h1 class="title">📅 Today's Tasks</h1>
+
+  <div class="today-card">
+
+    <div *ngIf="todayTasks.length === 0" class="empty">
+      <p>No tasks for today 🎉</p>
+    </div>
+
+    <div class="today-list" *ngIf="todayTasks.length > 0">
+
+      <div class="task" *ngFor="let t of todayTasks">
+        <div class="left">
+          <h3 [class.done]="t.status === 'DONE'">{{ t.title }}</h3>
+          <p>{{ t.startDate | date:'shortTime' }} → {{ t.endDate | date:'shortTime' }}</p>
+        </div>
+
+        <div class="status" [class.done]="t.status === 'DONE'">
+          {{ t.status }}
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- OVERVIEW  -->
+  <h1 class="title">📊 General statistics</h1>
 
   <div class="stats">
 
@@ -31,3 +58,4 @@
   </div>
 
 </div>
+

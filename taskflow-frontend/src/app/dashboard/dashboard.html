@@ -1,7 +1,9 @@
+
 <div class="dashboard">
 
+  <!-- HEADER  -->
   <div class="header">
-    <h2>This Week</h2>
+    <h1>This Week</h1>
     <p>Your weekly overview</p>
   </div>
 
@@ -17,7 +19,7 @@
       </div>
     </div>
 
-    <!-- EMPTY STATE -->
+    <!-- EMPTY -->
     <div *ngIf="bars.length === 0" class="empty">
       <h3>No tasks yet</h3>
       <p>Add tasks to see them here 🚀</p>
@@ -26,15 +28,27 @@
     <!-- TIMELINE -->
     <div class="timeline" *ngIf="bars.length > 0">
 
+      <div class="grid-lines">
+        <div *ngFor="let d of weekDays"></div>
+      </div>
+
       <div class="row" *ngFor="let bar of bars">
 
         <div
           class="bar"
           [style.gridColumn]="bar.startIndex + 1 + ' / span ' + bar.length"
           [class.done]="bar.status === 'DONE'"
+          (mouseenter)="hovered = bar.id"
+          (mouseleave)="hovered = null"
           (click)="markDone(bar)">
 
           {{ bar.title }}
+
+          <div class="tooltip" *ngIf="hovered === bar.id">
+            <strong>{{ bar.title }}</strong>
+            <p>Status: {{ bar.status }}</p>
+            <p>{{ bar.startDate }} → {{ bar.endDate }}</p>
+          </div>
 
         </div>
 

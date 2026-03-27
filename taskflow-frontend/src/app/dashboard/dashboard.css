@@ -1,42 +1,48 @@
 .dashboard {
-  padding: 30px;
+  padding: 40px 30px;
   color: var(--text);
 }
 
 /* HEADER */
-.header h2 {
-  font-size: 28px;
-  margin-bottom: 5px;
+.header {
+  margin-bottom: 25px;
+}
+
+.header h1 {
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--text);
 }
 
 .header p {
   color: #94a3b8;
-  margin-bottom: 20px;
+  font-size: 14px;
 }
 
-/* CARD BACKGROUND */
+/* CARD */
 .calendar-card {
   background: var(--card);
   border-radius: 20px;
   padding: 25px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-  border: 1px solid rgba(255,255,255,0.05);
 }
 
 /* DAYS */
 .week-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 12px;
   margin-bottom: 20px;
 }
 
 .day {
-  background: rgba(255,255,255,0.04);
-  border-radius: 12px;
-  padding: 10px;
   text-align: center;
-  font-size: 13px;
+  padding: 12px 8px;
+  border-right: 1px solid rgba(0,0,0,0.08);
+}
+
+.day:last-child {
+  border-right: none;
 }
 
 .day-header {
@@ -51,12 +57,13 @@
 
 .day small {
   color: #94a3b8;
+  font-size: 12px;
 }
 
-/* EMPTY STATE */
+/* EMPTY */
 .empty {
   text-align: center;
-  padding: 40px 0;
+  padding: 50px 0;
   opacity: 0.8;
 }
 
@@ -64,35 +71,50 @@
   margin-bottom: 5px;
 }
 
-.empty p {
-  color: #94a3b8;
-}
-
 /* TIMELINE */
 .timeline {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  position: relative;
 }
 
+/* GRID LINES */
+.grid-lines {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  pointer-events: none;
+}
+
+.grid-lines div {
+  border-right: 1px dashed rgba(0,0,0,0.1);
+}
+
+.grid-lines div:last-child {
+  border-right: none;
+}
+
+/* ROW */
 .row {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  height: 36px;
+  height: 40px;
+  margin-bottom: 12px;
+  position: relative;
 }
 
-/* BARS */
+/* BAR */
 .bar {
+  position: relative;
   background: linear-gradient(135deg, #6366f1, #4f46e5);
   color: white;
   border-radius: 999px;
-  padding: 6px 12px;
+  padding: 6px 14px;
   font-size: 12px;
   display: flex;
   align-items: center;
-  transition: 0.2s;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  z-index: 2;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 .bar:hover {
@@ -103,5 +125,24 @@
   background: #22c55e;
   opacity: 0.7;
   text-decoration: line-through;
+}
+
+/* TOOLTIP */
+.tooltip {
+  position: absolute;
+  bottom: 120%;
+  left: 0;
+  background: #0f172a;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 12px;
+  white-space: nowrap;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+  z-index: 10;
+}
+
+.tooltip p {
+  margin: 2px 0;
 }
 

@@ -1,3 +1,4 @@
+
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../services/api.service';
@@ -14,6 +15,7 @@ export class DashboardComponent implements OnInit {
   weekDays: any[] = [];
   bars: any[] = [];
   loading = false;
+  hovered: number | null = null;
 
   constructor(
     private api: ApiService,
@@ -29,6 +31,7 @@ export class DashboardComponent implements OnInit {
 
     const today = new Date();
 
+    // start tygodnia (poniedziałek)
     const start = new Date(today);
     const day = start.getDay();
     const diff = start.getDate() - day + (day === 0 ? -6 : 1);
@@ -48,7 +51,7 @@ export class DashboardComponent implements OnInit {
         this.bars = this.buildBars(tasks, start);
 
         this.loading = false;
-        this.cdr.detectChanges();
+        this.cdr.detectChanges(); // refresh
       },
       error: (err) => {
         console.error(err);
@@ -58,18 +61,18 @@ export class DashboardComponent implements OnInit {
   }
 
   mapDays(start: Date) {
-      this.weekDays = [];
+    this.weekDays = [];
 
-      for (let i = 0; i < 7; i++) {
-        const day = new Date(start);
-        day.setDate(start.getDate() + i);
+    for (let i = 0; i < 7; i++) {
+      const day = new Date(start);
+      day.setDate(start.getDate() + i);
 
-        this.weekDays.push({
-          date: this.formatDate(day),
-          name: day.toLocaleDateString('en-US', { weekday: 'short' }) + ' '
-        });
-      }
+      this.weekDays.push({
+        date: this.formatDate(day),
+        name: day.toLocaleDateString('en-US', { weekday: 'short' }) + ' '
+      });
     }
+  }
 
   buildBars(tasks: any[], start: Date) {
     const bars: any[] = [];
@@ -99,6 +102,8 @@ export class DashboardComponent implements OnInit {
         id: t.id,
         title: t.title,
         status: t.status,
+        startDate: startStr,
+        endDate: endStr,
         startIndex,
         length
       });
@@ -111,7 +116,7 @@ export class DashboardComponent implements OnInit {
     const newStatus = task.status === 'DONE' ? 'TODO' : 'DONE';
 
     this.api.updateTaskStatus(task.id, newStatus).subscribe(() => {
-      this.loadWeek();
+      this.loadWeek(); //  refresh po zmianie
     });
   }
 
