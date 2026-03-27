@@ -16,6 +16,10 @@ export class HomeComponent implements OnInit {
   overdue = 0;
 
   todayTasks: any[] = [];
+  hasAnyTasks = false;
+
+  todayCompleted = 0; //  NOWE
+  todayTotal = 0;     //  NOWE
 
   loading = false;
 
@@ -33,12 +37,12 @@ export class HomeComponent implements OnInit {
 
     this.api.getTasks().subscribe({
       next: (tasks: any[]) => {
-        console.log('HOME TASKS:', tasks);
-
         const now = new Date();
         const todayStr = this.formatDate(now);
 
-        // 🔥 STATS
+        this.hasAnyTasks = tasks.length > 0;
+
+        // STATS
         this.total = tasks.length;
 
         this.completed = tasks.filter(t => t.status === 'DONE').length;
@@ -48,13 +52,18 @@ export class HomeComponent implements OnInit {
           new Date(t.endDate) < now
         ).length;
 
-        // 🔥 TODAY TASKS
-        this.todayTasks = tasks.filter(t => {
-          const start = t.startDate?.split('T')[0];
-          const end = t.endDate?.split('T')[0];
+        // TODAY TASKS
+        this.todayTasks = tasks
+          .filter(t => {
+            const start = t.startDate?.split('T')[0];
+            const end = t.endDate?.split('T')[0];
+            return start && end && start <= todayStr && end >= todayStr;
+          })
+          .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime());
 
-          return start && end && start <= todayStr && end >= todayStr;
-        });
+        // PROGRESS
+        this.todayTotal = this.todayTasks.length;
+        this.todayCompleted = this.todayTasks.filter(t => t.status === 'DONE').length;
 
         this.loading = false;
         this.cdr.detectChanges();
@@ -66,8 +75,17 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  refresh() {
-    this.loadData();
+  toggleStatus(task: any) {
+    const newStatus = task.status === 'DONE' ? 'TODO' : 'DONE';
+
+    this.api.updateTaskStatus(task.id, newStatus).subscribe(() => {
+      this.loadData();
+    });
+  }
+
+  getProgress(): number {
+    if (this.todayTotal === 0) return 0;
+    return Math.round((this.todayCompleted / this.todayTotal) * 100);
   }
 
   formatDate(date: Date): string {
