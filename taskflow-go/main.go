@@ -8,8 +8,12 @@ import (
 func main() {
 	r := gin.Default()
 
+
 	r.POST("/stats", handler.GetStats)
 
-	r.Run(":8081") // Go service
+
+	r.POST("/send-code", handler.SendCode)
+
+	r.Run(":8081")
 }
 
