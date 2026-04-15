@@ -25,7 +25,7 @@ export class SidebarComponent implements OnInit {
     localStorage.setItem('sidebarCollapsed', String(this.collapsed));
   }
 
-  /* 📱 AUTO MOBILE */
+
   @HostListener('window:resize')
   onResize() {
     this.checkScreen();
