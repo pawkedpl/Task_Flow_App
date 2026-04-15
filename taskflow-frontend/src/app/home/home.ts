@@ -18,8 +18,8 @@ export class HomeComponent implements OnInit {
   todayTasks: any[] = [];
   hasAnyTasks = false;
 
-  todayCompleted = 0; //  NOWE
-  todayTotal = 0;     //  NOWE
+  todayCompleted = 0; 
+  todayTotal = 0;
 
   loading = false;
 
