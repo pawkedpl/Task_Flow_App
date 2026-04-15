@@ -28,7 +28,6 @@ public class TaskService {
         return taskRepository.findByUserId(user.getId());
     }
 
-    //  NOWA METODA WEEK
     public List<Task> getTasksForWeek(String email, String start, String end) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));

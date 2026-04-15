@@ -25,12 +25,12 @@ public class AuthService {
 
     public String register(RegisterRequest request) {
 
-        // 🔥 sprawdzamy czy user już istnieje
+        //sprawdzamy czy user już istnieje
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {
             throw new RuntimeException("User already exists");
         }
 
-        // 🔥 walidacja (prosta)
+        // walidacja (prosta)
         if (request.getEmail() == null || request.getEmail().isEmpty()
                 || request.getPassword() == null || request.getPassword().length() < 4) {
             throw new RuntimeException("Invalid data");
@@ -43,7 +43,7 @@ public class AuthService {
 
         userRepository.save(user);
 
-        // 🔥 od razu zwracamy token (lepszy UX)
+        // od razu zwracamy token (lepszy UX)
         return jwtUtil.generateToken(user.getEmail());
     }
 
